@@ -1,0 +1,96 @@
+/* Reset CSS */
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #ffffff;
+  --text: #111111;
+  --accent: #534AB7; /*violet - notre couleur signature */
+  --gray: #888888;
+  --section-bg: #f8f8f8;
+}
+
+html {
+  scroll-behavior: smooth;
+
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+/* Hero - plein écran */
+
+#hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+#hero h1 {
+  font-size: 64px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--text);
+}
+
+#hero h2 {
+  font-size: 22px;
+  color: var(--gray);
+  font-weight: 300;
+}
+
+#hero p {
+  font-size: 12px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 6px;
+}
+
+#hero a {
+  margin-top: 40px;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 28px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translate(0); }
+  50% {transform: translate(12px);}
+}
+
+/* Sections générales */
+section {
+  min-height: 100vh;
+  padding: 80px 10%;
+  border-bottom: 1px solid #eeeeee;
+}
+
+section h2 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+section h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: var(--accent);
+}

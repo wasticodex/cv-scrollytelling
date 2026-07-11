@@ -101,3 +101,52 @@ section h2::after {
   height: 3px;
   background: var(--accent);
 }
+
+.cursor {
+  animation: blink 1s infinite;
+  color: var(--accent);
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% {opacity: 0;}
+}
+
+.apropos-content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 700px;
+}
+
+.apropos-intro {
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.apropos-content {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--gray)
+}
+
+.accent {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.apropos-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag {
+  padding: 6px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-size: 13px;
+  border-radius: 20px;
+  font-family: 'Courier New', Courier, monospace;
+}

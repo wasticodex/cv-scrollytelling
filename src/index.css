@@ -150,3 +150,68 @@ section h2::after {
   border-radius: 20px;
   font-family: 'Courier New', Courier, monospace;
 }
+
+.timeline {
+  position: relative;
+  padding-left: 120px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 100px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+
+.timeline-item {
+  position: relative;
+  padding: 0 0 40px 40px;
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.timeline-annee {
+  position: absolute;
+  left: -120px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 13px;
+  color: var(--gray);
+  padding-top: 4px;
+  width: 80px;
+  text-align: right;
+}
+
+.timeline-point {
+  position: absolute;
+  left: -6px;
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--gray);
+  background: white;
+}
+
+.timeline-item.accent .timeline-point {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.timeline-contenu h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.timeline-item.accent .timeline-point h3 {
+  color: var(--accent);
+}
+
+.timeline-contenu p {
+  font-size: 14px;
+  color: var(--gray);
+}

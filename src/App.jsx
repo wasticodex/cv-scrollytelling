@@ -69,7 +69,29 @@ function App() {
       </section>
 
       <section id="formation">
-        <h2>Formation</h2>
+        <h2>Parcours</h2>
+          <div className='timeline'>
+            {[
+              {annee: "2025", titre: "Développeur Web Fullstack", lieu: "Studi - En cours", accent: true },
+              {annee: "2024", titre: "Conseiller Commercial en véhicule neuf", lieu: "Peugeot"},
+              {annee: "2023", titre: "CG Artist - 3D Designer", lieu: "RCD Except - Remote"},
+              {annee: "2021", titre: "CG Artist - 3D Configurateur", lieu: "3DCOM Renault - Paris"},
+              {annee: "2020", titre: "CG Artist - 3D Designer", lieu: "RCD Except - Guyancourt"},
+              {annee: "2018", titre: "CG Artist - Digital Designer Junior", lieu: "Oxelo Decathlon - Lille"},
+              {annee: "2016", titre: "CG Artist - 3D Modeleur Surfacique", lieu: "ESTECH - Buc"},
+              {annee: "2013", titre: "Technicien Audiovisuel", lieu: "MVision - Clamart"},
+            ].map((item, index) => (
+              <div className={`timeline-item ${item.accent ? 'accent' : ''}`} key={index}>
+                <div className='timeline-annee'>{item.annee}</div>
+                <div className='timeline-point'></div>
+                <div className='timeline-contenu'>
+                  <h3>{item.titre}</h3>
+                  <p>{item.lieu}</p>
+                </div>
+              </div>
+            ))}
+
+          </div>
       </section>
 
       <section id="competences">

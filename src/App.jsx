@@ -95,7 +95,41 @@ function App() {
       </section>
 
       <section id="competences">
-        <h2>Projets</h2>
+        <h2>Compétences</h2>
+        <p className='competences-intro'>
+          Profil polyvalent, de la création numérique au code en passant par la vente.
+          Pas expert en tout, mais compétent en beaucoup.
+        </p>
+        <div className='competences-grid'>
+
+          {[
+            {
+              categorie: "Créatif",
+              emoji: "🎨",
+              items: ["Modélisation 3D", "Rendering", "Animation 3D", "Retouche photo", "Adobe Suite", "Maya / Blender", "VRED / Keyshot", "Lumiscaphe Patchwork 3D" ]  
+            },
+            {
+              categorie: "Technique",
+              emoji: "💻",
+              items: ["HTML/CSS", "Javascript", "React", "Git / GitHub", "Node.js", "Alias Automotive"]
+            },
+            {
+              categorie: "Commercial",
+              emoji: "🤝",
+              items: ["Vente et Financement", "Relation clientèle", "Qualité", "Négociation", "Gestion de portefeuille"]
+            }
+          ].map((col, index) => (
+            <div className='competences-col' key={index}>
+              <h3>{col.emoji} {col.categorie}</h3>
+              <ul>
+                {col.items.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+        </div>
       </section>
 
       <section id="experiences">

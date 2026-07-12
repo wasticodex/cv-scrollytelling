@@ -215,3 +215,52 @@ section h2::after {
   font-size: 14px;
   color: var(--gray);
 }
+
+.competences-intro {
+  font-size: 16px;
+  color: var(--gray);
+  font-style: italic;
+  margin-bottom: 40px;
+  max-width: 600px;
+}
+
+.competences-grid {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.competences-col {
+  flex: 1;
+  min-width: 200px;
+}
+
+.competences-col h3 {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  color: var(--accent);
+}
+
+.competences-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.competences-col ul li {
+  font-size: 14px;
+  color: var(--text);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.competences-col ul li::before {
+  content: '→ ';
+  color: var(--accent);
+  font-family: 'Courier New', Courier, monospace;
+}

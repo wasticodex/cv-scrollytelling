@@ -198,6 +198,39 @@ function App() {
 
       <section id="contact">
         <h2>Contact</h2>
+        <p className='contact-accroche'>
+          Ouvert aux opportunités - profil hybride, créatif et technique en quête de nouveaux défis.
+        </p>
+        <div className='contact-grid'>
+          <a href="mailto:wasticodex@gmail.com" className='contact-item'>
+            <span className='contact-icon'>✉</span>
+            <div>
+              <p className='contact-label'>Email</p>
+              <p className='contact-value'>wasti.codex@gmail.com</p>
+            </div>
+          </a>
+          <a href="https://github.com/wasticodex" target='_blank' className='contact-item'>
+            <span className='contact-icon'>⌥</span>
+            <div>
+              <p className='contact-label'>GitHub</p>
+              <p className='contact-value'>wasticodex</p>
+            </div>
+          </a>
+          <a href="https://linkedin.com/in/" target='_blank' className='contact-item'>
+            <span className='contact-icon'>in</span>
+            <div>
+              <p className='contact-label'>LinkedIn</p>
+              <p className='contact-value'>Matthieu PIRON</p>
+            </div>
+          </a>
+          <div className='contact-item'>
+            <span className='contact-icon'>📍</span>
+            <div>
+              <p className='contact-label'>Localisation</p>
+              <p className='contact-value'>France</p>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
   )

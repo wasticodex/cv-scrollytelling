@@ -38,6 +38,7 @@ body {
   gap: 16px;
   border: 30px solid var(--accent);
   margin: 0px;
+  padding-top: 60px; /* Hauteur de la Navbar*/
 }
 
 #hero h1 {
@@ -415,4 +416,58 @@ section h2::after {
 .section-visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    z-index: 100;
+}
+
+.navbar-logo {
+    font-family: 'Courier New', monospace;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--accent);
+    letter-spacing: 2px;
+}
+
+.navbar ul {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+}
+
+.navbar a {
+    text-decoration: none;
+    font-size: 13px;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Courier New', monospace;
+    transition: color 0.2s;
+}
+
+.navbar a:hover {
+    color: var(--text);
+}
+
+.navbar a.nav-active {
+    color: var(--accent);
+    font-weight: 700;
+}
+
+/* Compense la navbar fixe */
+section {
+    scroll-margin-top: 60px;
 }

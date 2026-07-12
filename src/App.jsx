@@ -48,9 +48,57 @@ function AnimatedSection({ id, children }) {
     )
 }
 
+function Navbar() {
+    const [active, setActive] = useState('hero')
+
+    useEffect(() => {
+        const sections = document.querySelectorAll('section')
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setActive(entry.target.id)
+                    }
+                })
+            },
+            { threshold: 0.5 }
+        )
+        sections.forEach(s => observer.observe(s))
+        return () => observer.disconnect()
+    }, [])
+
+    const liens = [
+        { id: 'hero', label: 'Home' },
+        { id: 'apropos', label: 'À propos' },
+        { id: 'formation', label: 'Parcours' },
+        { id: 'competences', label: 'Compétences' },
+        { id: 'projets', label: 'Projets' },
+        { id: 'contact', label: 'Contact' },
+    ]
+
+    return (
+        <nav className="navbar">
+            <span className="navbar-logo">MP</span>
+            <ul>
+                {liens.map(lien => (
+                    <li key={lien.id}>
+                        <a
+                            href={`#${lien.id}`}
+                            className={active === lien.id ? 'nav-active' : ''}
+                        >
+                            {lien.label}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </nav>
+    )
+}
+
 function App() {
   return (
     <div className="cv">
+      <Navbar />
       <section id="hero">
         <h1>Matthieu PIRON</h1>
         <h2>

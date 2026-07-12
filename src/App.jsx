@@ -1,4 +1,4 @@
-import { useState, useEffect, use } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 function TypeWritter({ textes }) {
   const [index, setIndex] = useState(0)
@@ -24,6 +24,30 @@ function TypeWritter({ textes }) {
   return <span>{texte}<span className='cursor'>|</span></span>
 }
 
+function AnimatedSection({ id, children }) {
+    const ref = useRef(null)
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('section-visible')
+                    observer.unobserve(entry.target)
+                }
+            },
+            { threshold: 0.1 }
+        )
+        if (ref.current) observer.observe(ref.current)
+        return () => observer.disconnect()
+    }, [])
+
+    return (
+        <section id={id} ref={ref} className="section-hidden">
+            {children}
+        </section>
+    )
+}
+
 function App() {
   return (
     <div className="cv">
@@ -40,7 +64,7 @@ function App() {
         <a href="#apropos">↓ Découvrir</a>
       </section>
       
-      <section id="a propos">
+      <AnimatedSection id="apropos">
         <h2>À propos</h2>
         <div className='apropos-content'>
           <div className='apropos-texte'>
@@ -66,9 +90,9 @@ function App() {
             <span className='tag'>React</span>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section id="formation">
+      <AnimatedSection id="formation">
         <h2>Parcours</h2>
           <div className='timeline'>
             {[
@@ -92,9 +116,9 @@ function App() {
             ))}
 
           </div>
-      </section>
+      </AnimatedSection>
 
-      <section id="competences">
+      <AnimatedSection id="competences">
         <h2>Compétences</h2>
         <p className='competences-intro'>
           Profil polyvalent, de la création numérique au code en passant par la vente.
@@ -130,9 +154,9 @@ function App() {
           ))}
 
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section id="projets">
+      <AnimatedSection id="projets">
         <h2>Projets</h2>
         <div className='projet-grid'>
           {[
@@ -190,13 +214,13 @@ function App() {
             </div>
           ))}
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section id="experiences">
+      <AnimatedSection id="experiences">
         <h2>Expériences</h2>
-      </section>
+      </AnimatedSection>
 
-      <section id="contact">
+      <AnimatedSection id="contact">
         <h2>Contact</h2>
         <p className='contact-accroche'>
           Ouvert aux opportunités - profil hybride, créatif et technique en quête de nouveaux défis.
@@ -231,7 +255,7 @@ function App() {
             </div>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
     </div>
   )
 }

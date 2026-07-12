@@ -403,3 +403,16 @@ section h2::after {
     font-size: 15px;
     font-weight: 500;
 }
+
+/* État initial — invisible et décalé vers le bas */
+.section-hidden {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+/* État visible — animé */
+.section-visible {
+    opacity: 1;
+    transform: translateY(0);
+}

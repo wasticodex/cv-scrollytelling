@@ -132,6 +132,66 @@ function App() {
         </div>
       </section>
 
+      <section id="projets">
+        <h2>Projets</h2>
+        <div className='projet-grid'>
+          {[
+            {
+              categorie: "3D / Design",
+              titre: "Configurateur Renault",
+              desc: "Modélisation 3D, Rendering et post production pour configurateur automobile.",
+              tags: ["Lumiscaphe Patchwork 3D", "Blender", "Maya", "Suite adobe"],
+              img: null
+            },
+            {
+              categorie: "3D / Design",
+              titre: "Oxelo Decathlon",
+              desc: "Digital designer - Modélisation et rendu de produits sportifs et Réalité virtuelle du merch",
+              tags: ["Alias","Keyshot","VRED", "Blender"],
+              img: null
+            },
+            {
+              categorie: "Dev Web",
+              titre: "Cartes de profil",
+              desc: "Mini app JS vanilla - fetch depuis une API REST, génération dynamique de cartes.",
+              tags: ["Javascript", "Fetch API", "CSS"],
+              lien: "https://github.com/wasticodex/cartes-profil"
+            },
+            {
+              categorie: "Dev Web",
+              titre: "CV Scrollytelling",
+              desc: "Ce CV - construit avec React, useState, UseEffect et animations CSS.",
+              tags: ["React", "CSS", "Git"],
+              lien: "#hero"
+            },
+          ].map((projet, index) => (
+            <div className='projet-card' key={index}>
+              <div className='projet-img'>
+                {projet.img
+                  ? <img src={projet.img} alt={projet.title} />
+                  : <span>Image à venir</span>
+                }
+              </div>
+              <div className='projet-infos'>
+                <span className='projet-categories'>{projet.categorie}</span>
+                <h3>{projet.titre}</h3>
+                <p>{projet.desc}</p>
+                <div className='projet-tags'>
+                  {projet.tags.map((tag, i) => (
+                    <span key={i} className='tag'>{tag}</span>
+                  ))}
+                </div>
+                {projet.lien && (
+                  <a href={projet.lien} className='projet-lien' target='_blank'>
+                      Voir le projet →
+                    </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section id="experiences">
         <h2>Expériences</h2>
       </section>

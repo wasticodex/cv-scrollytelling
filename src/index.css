@@ -531,3 +531,67 @@ section {
         font-size: 16px;
     }
 }
+
+/* Desktop — affiche le menu horizontal */
+.navbar-desktop {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+}
+
+/* Hamburger — caché sur desktop */
+.navbar-hamburger {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: var(--text);
+}
+
+/* Menu mobile — caché par défaut */
+.navbar-mobile {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    /* Cache le menu desktop */
+    .navbar-desktop {
+        display: none;
+    }
+
+    /* Affiche le hamburger */
+    .navbar-hamburger {
+        display: block;
+    }
+
+    /* Menu mobile ouvert */
+    .navbar-mobile {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: white;
+        border-bottom: 1px solid var(--border);
+        padding: 20px 5%;
+        gap: 16px;
+        list-style: none;
+        z-index: 99;
+    }
+
+    .navbar-mobile a {
+        font-size: 14px;
+        color: var(--text);
+        text-decoration: none;
+        font-family: 'Courier New', monospace;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .navbar-mobile a.nav-active {
+        color: var(--accent);
+        font-weight: 700;
+    }
+}

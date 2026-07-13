@@ -442,11 +442,11 @@ section h2::after {
     letter-spacing: 2px;
 }
 
-.navbar ul {
+/*.navbar ul {
     display: flex;
     gap: 32px;
     list-style: none;
-}
+}*/
 
 .navbar a {
     text-decoration: none;
@@ -475,7 +475,7 @@ section {
 @media (max-width: 768px) {
 
     /* Navbar */
-    .navbar ul {
+    /*.navbar ul {
         gap: 12px;
     }
     .navbar a {
@@ -483,7 +483,7 @@ section {
     }
     .navbar-logo {
         font-size: 14px;
-    }
+    }*/
 
     /* Hero */
     #hero h1 {

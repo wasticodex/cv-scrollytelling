@@ -52,21 +52,27 @@ function Navbar() {
     const [active, setActive] = useState('hero')
     const [menuOuvert, setMenuOuvert] = useState(false)
 
-    useEffect(() => {
-        const sections = document.querySelectorAll('section')
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        setActive(entry.target.id)
-                    }
-                })
-            },
-            { threshold: 0.5 }
-        )
-        sections.forEach(s => observer.observe(s))
-        return () => observer.disconnect()
-    }, [])
+useEffect(() => {
+    const sections = document.querySelectorAll('section')
+    
+    const isMobile = window.innerWidth <= 768  // ← ajoute cette ligne
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setActive(entry.target.id)
+                }
+            })
+        },
+        { 
+            threshold: isMobile ? 0.1 : 0.5,  // ← modifie cette ligne
+            rootMargin: '-60px 0px 0px 0px'
+        }
+    )
+    sections.forEach(s => observer.observe(s))
+    return () => observer.disconnect()
+}, [])
 
     const liens = [
         { id: 'hero', label: 'Home' },
@@ -291,10 +297,6 @@ function App() {
             </div>
           ))}
         </div>
-      </AnimatedSection>
-
-      <AnimatedSection id="experiences">
-        <h2>Expériences</h2>
       </AnimatedSection>
 
       <AnimatedSection id="contact">

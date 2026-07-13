@@ -50,6 +50,7 @@ function AnimatedSection({ id, children }) {
 
 function Navbar() {
     const [active, setActive] = useState('hero')
+    const [menuOuvert, setMenuOuvert] = useState(false)
 
     useEffect(() => {
         const sections = document.querySelectorAll('section')
@@ -79,7 +80,9 @@ function Navbar() {
     return (
         <nav className="navbar">
             <span className="navbar-logo">MP</span>
-            <ul>
+            
+            {/* Menu desktop */}
+            <ul className="navbar-desktop">
                 {liens.map(lien => (
                     <li key={lien.id}>
                         <a
@@ -91,9 +94,35 @@ function Navbar() {
                     </li>
                 ))}
             </ul>
+
+            {/* Bouton hamburger mobile */}
+            <button 
+                className="navbar-hamburger"
+                onClick={() => setMenuOuvert(!menuOuvert)}
+            >
+                {menuOuvert ? '✕' : '☰'}
+            </button>
+
+            {/* Menu mobile */}
+            {menuOuvert && (
+                <ul className="navbar-mobile">
+                    {liens.map(lien => (
+                        <li key={lien.id}>
+                            <a
+                                href={`#${lien.id}`}
+                                className={active === lien.id ? 'nav-active' : ''}
+                                onClick={() => setMenuOuvert(false)}
+                            >
+                                {lien.label}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            )}
         </nav>
     )
 }
+
 
 function App() {
   return (

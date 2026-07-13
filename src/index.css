@@ -36,8 +36,8 @@ body {
   align-items: center;
   text-align: center;
   gap: 16px;
-  border: 30px solid var(--accent);
-  margin: 0px;
+  /*border: 30px solid var(--accent);
+  margin: 0px;*/
   padding-top: 60px; /* Hauteur de la Navbar*/
 }
 
@@ -85,12 +85,12 @@ section {
 }
 
 section h2 {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 36px;
+  /*font-family: 'Courier New', Courier, monospace;*/
+  font-size: 64px;
   font-weight: 700;
   text-transform: uppercase;
-  margin-bottom: 40px;
-  position: relative;
+  margin-bottom: 60px;
+  /*position: relative;*/
 }
 
 section h2::after {

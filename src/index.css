@@ -595,3 +595,66 @@ section {
         font-weight: 700;
     }
 }
+
+@media print {
+  /*Caches les ele;emts de la navBar*/
+  .navbar {
+    display: none;
+  }
+
+  #hero a {
+    display: none;
+  }
+
+  /*Supprime les animations */
+  .section-hidden {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /*Fond blanc, texte noir */
+  body {
+    background: white;
+    color: black;
+  }
+
+  /* Sections en hauteur auto - pas 100vh */
+  section {
+    min-height: auto;
+    padding: 40px 10px;
+    border: none;
+    page-break-inside: avoid;
+  }
+
+  /*Titres plus petits pour l'impression*/
+  section h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  #hero {
+    height: auto;
+    padding: 40px 10px;
+    text-align: left;
+  }
+
+  #hero h1 {
+    font-size: 36px;
+  }
+
+  /*Projet en colonne pour l'impression */
+  .projet-card  {
+    flex-direction: column;
+  }
+
+  .projet-img {
+    display: none;
+  }
+
+  /*Liens visibles a l'impression */
+  .projet-lien::after {
+    content:  ' (' attr(href) ')';
+    font-size: 11px;
+    color: #666;
+  }
+}

@@ -554,6 +554,27 @@ section {
     display: none;
 }
 
+/* Bouton impression — séparé */
+.print-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: 'Courier New', monospace;
+    z-index: 200;
+    box-shadow: 0 4px 12px rgba(83, 74, 183, 0.3);
+}
+
+.print-btn:hover {
+    opacity: 0.9;
+}
+
 @media (max-width: 768px) {
     /* Cache le menu desktop */
     .navbar-desktop {
@@ -597,64 +618,244 @@ section {
 }
 
 @media print {
-  /*Caches les ele;emts de la navBar*/
-  .navbar {
-    display: none;
-  }
 
-  #hero a {
-    display: none;
-  }
+    /* Réinitialise TOUT */
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
 
-  /*Supprime les animations */
-  .section-hidden {
-    opacity: 1 !important;
-    transform: none !important;
-  }
+    /* Rend toutes les sections visibles */
+    .section-hidden {
+      opacity: 1 !important;
+      transform: none !important;
+    }
 
-  /*Fond blanc, texte noir */
-  body {
-    background: white;
-    color: black;
-  }
+    .section-visible {
+        opacity: 1 !important;
+        transform: none !important;
+        display: block !important;
+    }
 
-  /* Sections en hauteur auto - pas 100vh */
-  section {
-    min-height: auto;
-    padding: 40px 10px;
-    border: none;
-    page-break-inside: avoid;
-  }
+    /* Cache éléments inutiles */
+    .navbar,
+    .navbar-hamburger,
+    .navbar-mobile,
+    .navbar-desktop,
+    #hero a,
+    .cursor,
+    .projet-img {
+        display: none !important;
+    }
 
-  /*Titres plus petits pour l'impression*/
-  section h2 {
-    font-size: 28px;
-    margin-bottom: 20px;
-  }
+    /* Body */
+    body {
+        font-size: 12px;
+        color: #111;
+        background: white;
+    }
 
-  #hero {
-    height: auto;
-    padding: 40px 10px;
-    text-align: left;
-  }
+    /* Hero */
+    #hero {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        height: auto !important;
+        min-height: auto !important;
+        padding: 20px 10% !important;
+        border-bottom: 2px solid #111 !important;
+        gap: 4px !important;
+    }
 
-  #hero h1 {
-    font-size: 36px;
-  }
+    #hero h1 {
+        font-size: 24px !important;
+        letter-spacing: 2px !important;
+        margin: 0 !important;
+    }
 
-  /*Projet en colonne pour l'impression */
-  .projet-card  {
-    flex-direction: column;
-  }
+    #hero h2 {
+        display: none !important;
+    }
 
-  .projet-img {
-    display: none;
-  }
+    #hero p {
+        font-size: 10px !important;
+        color: #534AB7 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        margin: 0 !important;
+        letter-spacing: 4px !important;
+    }
 
-  /*Liens visibles a l'impression */
-  .projet-lien::after {
-    content:  ' (' attr(href) ')';
-    font-size: 11px;
-    color: #666;
-  }
+    /* Sections */
+    section {
+        min-height: auto !important;
+        height: auto !important;
+        padding: 16px 10% !important;
+        border: none !important;
+        break-inside: avoid;
+    }
+
+    section h2 {
+        font-size: 16px !important;
+        margin-bottom: 12px !important;
+        border-bottom: 1px solid #111 !important;
+        padding-bottom: 6px !important;
+    }
+
+    section h2::after {
+        display: none !important;
+    }
+
+    /* À propos */
+    .apropos-intro {
+        font-size: 13px !important;
+    }
+
+    .apropos-content p {
+        font-size: 11px !important;
+        line-height: 1.5 !important;
+    }
+
+    .tag {
+        font-size: 9px !important;
+        padding: 2px 6px !important;
+    }
+
+    /* Timeline */
+    .timeline {
+        padding-left: 80px !important;
+    }
+
+    .timeline::before {
+        left: 60px !important;
+    }
+
+    .timeline-annee {
+        left: -80px !important;
+        font-size: 10px !important;
+        width: 60px !important;
+    }
+
+    .timeline-item {
+        padding-bottom: 8px !important;
+    }
+
+    .timeline-contenu h3 {
+        font-size: 11px !important;
+        margin-bottom: 2px !important;
+    }
+
+    .timeline-contenu p {
+        font-size: 10px !important;
+    }
+
+    /* Compétences */
+    .competences-intro {
+        font-size: 11px !important;
+        margin-bottom: 12px !important;
+    }
+
+    .competences-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr 1fr !important;
+        gap: 16px !important;
+        flex-direction: unset !important;
+    }
+
+    .competences-col h3 {
+        font-size: 11px !important;
+        margin-bottom: 8px !important;
+        color: #534AB7 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .competences-col ul li {
+        font-size: 10px !important;
+        padding: 3px 0 !important;
+    }
+
+    /* Projets */
+    .projet-grid {
+        gap: 12px !important;
+    }
+
+    .projet-card {
+        padding-bottom: 8px !important;
+        flex-direction: column !important;
+    }
+
+    .projet-categorie {
+        font-size: 9px !important;
+    }
+
+    .projet-infos h3 {
+        font-size: 12px !important;
+    }
+
+    .projet-infos p {
+        font-size: 10px !important;
+    }
+
+    .projet-lien::after {
+        content: ' (' attr(href) ')';
+        font-size: 9px;
+        color: #666;
+    }
+
+    /* Contact */
+    .contact-accroche {
+        font-size: 11px !important;
+        margin-bottom: 12px !important;
+    }
+
+    .contact-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px !important;
+        max-width: 100% !important;
+    }
+
+    .contact-item {
+        padding: 8px !important;
+        gap: 10px !important;
+    }
+
+    .contact-icon {
+        width: 30px !important;
+        height: 30px !important;
+        font-size: 12px !important;
+    }
+
+    .contact-label {
+        font-size: 9px !important;
+    }
+
+    .contact-value {
+        font-size: 11px !important;
+    }
+
+    /* Force la visibilité de toutes les sections */
+    section.section-hidden {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        display: block !important;
+        visibility: visible !important;
+    }
+
+    /* Et le hero spécifiquement */
+    #hero {
+      display: flex !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    #contact {
+      min-width: auto !important;
+      height: auto !important;
+    }
+
+    .print-btn {
+        display: none !important;
+    }
 }

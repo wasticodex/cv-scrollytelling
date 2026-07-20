@@ -28,6 +28,9 @@ function AnimatedSection({ id, children }) {
     const ref = useRef(null)
 
     useEffect(() => {
+        // Ne pas animer si on est en mode print
+        if (window.matchMedia('print').matches) return
+
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
@@ -129,11 +132,41 @@ useEffect(() => {
     )
 }
 
-
 function App() {
+    useEffect(() => {
+        const handlePrint = () => {
+            document.querySelectorAll('.section-hidden').forEach(el => {
+                el.classList.add('section-visible')
+            })
+        }
+        window.addEventListener('beforeprint', handlePrint)
+        return () => window.removeEventListener('beforeprint', handlePrint)
+    }, [])
   return (
     <div className="cv">
       <Navbar />
+
+      <button 
+        className="print-btn"
+        onClick={() => {
+            // Scroll jusqu'en bas pour déclencher toutes les animations
+            window.scrollTo(0, document.body.scrollHeight)
+            
+            // Puis force la visibilité et imprime
+            setTimeout(() => {
+                document.querySelectorAll('.section-hidden').forEach(el => {
+                    el.classList.remove('section-hidden') // retire la classe
+                    el.classList.add('section-visible')   // ajoute la visible
+                    el.style.opacity = '1'
+                    el.style.transform = 'none'
+                })
+                setTimeout(() => window.print(), 800)
+            }, 500)
+        }}
+      >
+          🖨️ Imprimer le CV
+      </button>
+
       <section id="hero">
         <h1>Matthieu PIRON</h1>
         <h2>
@@ -269,7 +302,7 @@ function App() {
               titre: "CV Scrollytelling",
               desc: "Ce CV - construit avec React, useState, UseEffect et animations CSS.",
               tags: ["React", "CSS", "Git"],
-              lien: "#hero"
+              lien: "https://github.com/wasticodex/cv-scrollytelling"
             },
           ].map((projet, index) => (
             <div className='projet-card' key={index}>

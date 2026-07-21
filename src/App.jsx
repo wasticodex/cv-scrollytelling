@@ -1,4 +1,50 @@
 import { useState, useEffect, useRef } from 'react'
+import { Routes, Route, Link } from 'react-router-dom'
+
+const PROJETS = [
+  {
+    id: "renault",
+    categorie: "3D / Design / Configurateur",
+    titre: "Configurateur Renault & Imagerie Marketing",
+    desc: "Modélisation 3D, Rendering et post production pour configurateur automobile.",
+    descLongue: "Prestataire pour le 3DCOM Renault, j'ai travaille sur le configurateur de Renault. Depuis la reception des 3D, DataPrep, Scene Assembly, Materials & Texturing, Lighting, Camera & Composition, Rendering et Postproduction. Ainsi que le parametrage du configurateur Vehicules Utilitaires Renault. Un traail qui demande de la rigueur et de l'organisation pour realiser les visuels de haute qualite dans le temps imparti pour le site officiel.",
+    tags: ["Lumiscaphe Patchwork 3D", "Blender", "Maya", "Suite Adobe"],
+    img: null,
+    annee: "2021"
+  },
+  {
+    id: "decathlon",
+    categorie: "3D / Design / Realite Virtuelle",
+    titre: "OXELO Decathlon",
+    desc: "Digital Designer. Modelisation 3D, Rendering et Post Production de produits sportifs OXELO",
+    descLongue: "Stagiaire puis freelance pour Decathlon OXELO, j'ai modelise et anime des produits de la marque, pour les ca;pagne marketing et les experiences de realite virtuelle du merchandising",
+    tags: ["Alias", "Keyshot", "VRED", "Blender", "Suite Adobe"],
+    img: null,
+    annee: "2018"
+  },
+  {
+    id: "cartes-profil",
+    categorie: "Dev Web",
+    titre: "Cartes de profil",
+    desc: "Mini app JS vanilla - fetch depuis une API REST.",
+    descLongue: "Premier projet JS vanilla — génération dynamique de cartes de profil depuis une API REST publique (JSONPlaceholder). Découverte du DOM, des événements, du fetch et de la manipulation dynamique du HTML.",
+    tags: ["Javascript", "Fetch API", "CSS"],
+    lien: "https://github.com/wasticodex/cartes-profil",
+    img: null,
+    annee: "2025"
+  },
+  {
+    id: "cv-scrollytelling",
+    categorie: "Dev Web",
+    titre: "CV Scrollytelling",
+    desc: "Ce CV - construit avec React, useState, UseEffect et animations CSS.",
+    descLongue: "Ce CV interactif — construit avec React, animations au scroll via IntersectionObserver, effet TypeWriter, navbar responsive avec menu hamburger, et version imprimable via CSS print.",
+    tags: ["React", "CSS", "Git", "Vercel"],
+    lien: "https://cv-scrollytelling.vercel.app",
+    img: null,
+    annee: "2025"
+  },
+]
 
 function TypeWritter({ textes }) {
   const [index, setIndex] = useState(0)
@@ -132,6 +178,51 @@ useEffect(() => {
     )
 }
 
+function ProjetDetail() {
+    const { id } = useParams()
+    const projet = PROJETS.find(p => p.id === id)
+
+    if (!projet) return (
+        <div style={{ padding: '80px 10%' }}>
+            <p>Projet introuvable.</p>
+            <Link to="/">← Retour au CV</Link>
+        </div>
+    )
+
+    return (
+        <div className="projet-detail">
+            <Link to="/" className="retour-btn">← Retour au CV</Link>
+            
+            <div className="projet-detail-header">
+                <span className="projet-categorie">{projet.categorie}</span>
+                <h1>{projet.titre}</h1>
+                <p className="projet-annee">{projet.annee}</p>
+            </div>
+
+            <div className="projet-detail-img">
+                {projet.img 
+                    ? <img src={projet.img} alt={projet.titre} />
+                    : <span>Images à venir</span>
+                }
+            </div>
+
+            <div className="projet-detail-content">
+                <p>{projet.descLongue}</p>
+                <div className="projet-tags" style={{ marginTop: '20px' }}>
+                    {projet.tags.map((tag, i) => (
+                        <span key={i} className="tag">{tag}</span>
+                    ))}
+                </div>
+                {projet.lien && (
+                    <a href={projet.lien} target="_blank" className="projet-lien" style={{ marginTop: '20px', display: 'inline-block' }}>
+                        Voir sur GitHub →
+                    </a>
+                )}
+            </div>
+        </div>
+    )
+}
+
 function App() {
     useEffect(() => {
         const handlePrint = () => {
@@ -143,232 +234,244 @@ function App() {
         return () => window.removeEventListener('beforeprint', handlePrint)
     }, [])
   return (
-    <div className="cv">
-      <Navbar />
+    <Routes>
+      <Route path="/" element={
+        <div className="cv">
+          <Navbar />
 
-      <button 
-        className="print-btn"
-        onClick={() => {
-            // Scroll jusqu'en bas pour déclencher toutes les animations
-            window.scrollTo(0, document.body.scrollHeight)
-            
-            // Puis force la visibilité et imprime
-            setTimeout(() => {
-                document.querySelectorAll('.section-hidden').forEach(el => {
-                    el.classList.remove('section-hidden') // retire la classe
-                    el.classList.add('section-visible')   // ajoute la visible
-                    el.style.opacity = '1'
-                    el.style.transform = 'none'
-                })
-                setTimeout(() => window.print(), 800)
-            }, 500)
-        }}
-      >
-          🖨️ Imprimer le CV
-      </button>
+          <button 
+            className="print-btn"
+            onClick={() => {
+                // Scroll jusqu'en bas pour déclencher toutes les animations
+                window.scrollTo(0, document.body.scrollHeight)
+                
+                // Puis force la visibilité et imprime
+                setTimeout(() => {
+                    document.querySelectorAll('.section-hidden').forEach(el => {
+                        el.classList.remove('section-hidden') // retire la classe
+                        el.classList.add('section-visible')   // ajoute la visible
+                        el.style.opacity = '1'
+                        el.style.transform = 'none'
+                    })
+                    setTimeout(() => window.print(), 800)
+                }, 500)
+            }}
+          >
+              🖨️ Imprimer le CV
+          </button>
 
-      <section id="hero">
-        <h1>Matthieu PIRON</h1>
-        <h2>
-          <TypeWritter textes={[
-            "Développeur Web Full Stack",
-            "En formation autodidacte",
-            "Designer numérique polyvalent"
-          ]} /> 
-        </h2>
-        <p>En formation</p>
-        <a href="#apropos">↓ Découvrir</a>
-      </section>
-      
-      <AnimatedSection id="apropos">
-        <h2>À propos</h2>
-        <div className='apropos-content'>
-          <div className='apropos-texte'>
-            <p className='apropos-intro'>
-              Profil hybride entre <span className='accent'>créativité</span> et <span className='accent'>technique</span>.
-            </p>
-            <p>
-              Dans la culture du design numérique depuis plus de dix ans maintenant, 
-              principalement en prestataire pour l'industrie automobile et sportive.
-              Aujourd'hui, je rajoute une corde à mon arc, corde que j'ai souvent approchée mais jamais exploitée.
-              Je me forme sur le développement web fullstack pour fusionner mes 
-              univers créatifs et techniques dans un nouveau métier.
-            </p>
-            <p>
-              Ce CV est lui-même une démonstration de mes compétences en cours d'acquisition.
-            </p>
-          </div>
-          <div className='apropos-tags'>
-            <span className='tag'>CGI artist</span>
-            <span className='tag'>3D Design</span>
-            <span className='tag'>Conseiller commercial</span>
-            <span className='tag'>Dev Web</span>
-            <span className='tag'>React</span>
-          </div>
-        </div>
-      </AnimatedSection>
-
-      <AnimatedSection id="formation">
-        <h2>Parcours</h2>
-          <div className='timeline'>
-            {[
-              {annee: "2025", titre: "Développeur Web Fullstack", lieu: "Studi - En cours", accent: true },
-              {annee: "2024", titre: "Conseiller Commercial en véhicule neuf", lieu: "Peugeot"},
-              {annee: "2023", titre: "CG Artist - 3D Designer", lieu: "RCD Except - Remote"},
-              {annee: "2021", titre: "CG Artist - 3D Configurateur", lieu: "3DCOM Renault - Paris"},
-              {annee: "2020", titre: "CG Artist - 3D Designer", lieu: "RCD Except - Guyancourt"},
-              {annee: "2018", titre: "CG Artist - Digital Designer Junior", lieu: "Oxelo Decathlon - Lille"},
-              {annee: "2016", titre: "CG Artist - 3D Modeleur Surfacique", lieu: "ESTECH - Buc"},
-              {annee: "2013", titre: "Technicien Audiovisuel", lieu: "MVision - Clamart"},
-            ].map((item, index) => (
-              <div className={`timeline-item ${item.accent ? 'accent' : ''}`} key={index}>
-                <div className='timeline-annee'>{item.annee}</div>
-                <div className='timeline-point'></div>
-                <div className='timeline-contenu'>
-                  <h3>{item.titre}</h3>
-                  <p>{item.lieu}</p>
-                </div>
+          <section id="hero">
+            <h1>Matthieu PIRON</h1>
+            <h2>
+              <TypeWritter textes={[
+                "Développeur Web Full Stack",
+                "En formation autodidacte",
+                "Designer numérique polyvalent"
+              ]} /> 
+            </h2>
+            <p>En formation</p>
+            <a href="#apropos">↓ Découvrir</a>
+          </section>
+          
+          <AnimatedSection id="apropos">
+            <h2>À propos</h2>
+            <div className='apropos-content'>
+              <div className='apropos-texte'>
+                <p className='apropos-intro'>
+                  Profil hybride entre <span className='accent'>créativité</span> et <span className='accent'>technique</span>.
+                </p>
+                <p>
+                  Dans la culture du design numérique depuis plus de dix ans maintenant, 
+                  principalement en prestataire pour l'industrie automobile et sportive.
+                  Aujourd'hui, je rajoute une corde à mon arc, corde que j'ai souvent approchée mais jamais exploitée.
+                  Je me forme sur le développement web fullstack pour fusionner mes 
+                  univers créatifs et techniques dans un nouveau métier.
+                </p>
+                <p>
+                  Ce CV est lui-même une démonstration de mes compétences en cours d'acquisition.
+                </p>
               </div>
-            ))}
+              <div className='apropos-tags'>
+                <span className='tag'>CGI artist</span>
+                <span className='tag'>3D Design</span>
+                <span className='tag'>Conseiller commercial</span>
+                <span className='tag'>Dev Web</span>
+                <span className='tag'>React</span>
+              </div>
+            </div>
+          </AnimatedSection>
 
-          </div>
-      </AnimatedSection>
-
-      <AnimatedSection id="competences">
-        <h2>Compétences</h2>
-        <p className='competences-intro'>
-          Profil polyvalent, de la création numérique au code en passant par la vente.
-          Pas expert en tout, mais compétent en beaucoup.
-        </p>
-        <div className='competences-grid'>
-
-          {[
-            {
-              categorie: "Créatif",
-              emoji: "🎨",
-              items: ["Modélisation 3D", "Rendering", "Animation 3D", "Retouche photo", "Adobe Suite", "Maya / Blender", "VRED / Keyshot", "Lumiscaphe Patchwork 3D" ]  
-            },
-            {
-              categorie: "Technique",
-              emoji: "💻",
-              items: ["HTML/CSS", "Javascript", "React", "Git / GitHub", "Node.js", "Alias Automotive"]
-            },
-            {
-              categorie: "Commercial",
-              emoji: "🤝",
-              items: ["Vente et Financement", "Relation clientèle", "Qualité", "Négociation", "Gestion de portefeuille"]
-            }
-          ].map((col, index) => (
-            <div className='competences-col' key={index}>
-              <h3>{col.emoji} {col.categorie}</h3>
-              <ul>
-                {col.items.map((item, i) => (
-                  <li key={i}>{item}</li>
+          <AnimatedSection id="formation">
+            <h2>Parcours</h2>
+              <div className='timeline'>
+                {[
+                  {annee: "2025", titre: "Développeur Web Fullstack", lieu: "Studi - En cours", accent: true },
+                  {annee: "2024", titre: "Conseiller Commercial en véhicule neuf", lieu: "Peugeot"},
+                  {annee: "2023", titre: "CG Artist - 3D Designer", lieu: "RCD Except - Remote"},
+                  {annee: "2021", titre: "CG Artist - 3D Configurateur", lieu: "3DCOM Renault - Paris"},
+                  {annee: "2020", titre: "CG Artist - 3D Designer", lieu: "RCD Except - Guyancourt"},
+                  {annee: "2018", titre: "CG Artist - Digital Designer Junior", lieu: "Oxelo Decathlon - Lille"},
+                  {annee: "2016", titre: "CG Artist - 3D Modeleur Surfacique", lieu: "ESTECH - Buc"},
+                  {annee: "2013", titre: "Technicien Audiovisuel", lieu: "MVision - Clamart"},
+                ].map((item, index) => (
+                  <div className={`timeline-item ${item.accent ? 'accent' : ''}`} key={index}>
+                    <div className='timeline-annee'>{item.annee}</div>
+                    <div className='timeline-point'></div>
+                    <div className='timeline-contenu'>
+                      <h3>{item.titre}</h3>
+                      <p>{item.lieu}</p>
+                    </div>
+                  </div>
                 ))}
-              </ul>
-            </div>
-          ))}
 
-        </div>
-      </AnimatedSection>
+              </div>
+          </AnimatedSection>
 
-      <AnimatedSection id="projets">
-        <h2>Projets</h2>
-        <div className='projet-grid'>
-          {[
-            {
-              categorie: "3D / Design",
-              titre: "Configurateur Renault",
-              desc: "Modélisation 3D, Rendering et post production pour configurateur automobile.",
-              tags: ["Lumiscaphe Patchwork 3D", "Blender", "Maya", "Suite adobe"],
-              img: null
-            },
-            {
-              categorie: "3D / Design",
-              titre: "Oxelo Decathlon",
-              desc: "Digital designer - Modélisation et rendu de produits sportifs et Réalité virtuelle du merch",
-              tags: ["Alias","Keyshot","VRED", "Blender"],
-              img: null
-            },
-            {
-              categorie: "Dev Web",
-              titre: "Cartes de profil",
-              desc: "Mini app JS vanilla - fetch depuis une API REST, génération dynamique de cartes.",
-              tags: ["Javascript", "Fetch API", "CSS"],
-              lien: "https://github.com/wasticodex/cartes-profil"
-            },
-            {
-              categorie: "Dev Web",
-              titre: "CV Scrollytelling",
-              desc: "Ce CV - construit avec React, useState, UseEffect et animations CSS.",
-              tags: ["React", "CSS", "Git"],
-              lien: "https://github.com/wasticodex/cv-scrollytelling"
-            },
-          ].map((projet, index) => (
-            <div className='projet-card' key={index}>
-              <div className='projet-img'>
-                {projet.img
-                  ? <img src={projet.img} alt={projet.title} />
-                  : <span>Image à venir</span>
+          <AnimatedSection id="competences">
+            <h2>Compétences</h2>
+            <p className='competences-intro'>
+              Profil polyvalent, de la création numérique au code en passant par la vente.
+              Pas expert en tout, mais compétent en beaucoup.
+            </p>
+            <div className='competences-grid'>
+
+              {[
+                {
+                  categorie: "Créatif",
+                  emoji: "🎨",
+                  items: ["Modélisation 3D", "Rendering", "Animation 3D", "Retouche photo", "Adobe Suite", "Maya / Blender", "VRED / Keyshot", "Lumiscaphe Patchwork 3D" ]  
+                },
+                {
+                  categorie: "Technique",
+                  emoji: "💻",
+                  items: ["HTML/CSS", "Javascript", "React", "Git / GitHub", "Node.js", "Alias Automotive"]
+                },
+                {
+                  categorie: "Commercial",
+                  emoji: "🤝",
+                  items: ["Vente et Financement", "Relation clientèle", "Qualité", "Négociation", "Gestion de portefeuille"]
                 }
-              </div>
-              <div className='projet-infos'>
-                <span className='projet-categories'>{projet.categorie}</span>
-                <h3>{projet.titre}</h3>
-                <p>{projet.desc}</p>
-                <div className='projet-tags'>
-                  {projet.tags.map((tag, i) => (
-                    <span key={i} className='tag'>{tag}</span>
-                  ))}
+              ].map((col, index) => (
+                <div className='competences-col' key={index}>
+                  <h3>{col.emoji} {col.categorie}</h3>
+                  <ul>
+                    {col.items.map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
+                  </ul>
                 </div>
-                {projet.lien && (
-                  <a href={projet.lien} className='projet-lien' target='_blank'>
-                      Voir le projet →
-                    </a>
-                )}
+              ))}
+
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection id="projets">
+            <h2>Projets</h2>
+            <div className='projet-grid'>
+              {[
+                {
+                  id: "renault",
+                  categorie: "3D / Design",
+                  titre: "Configurateur Renault",
+                  desc: "Modélisation 3D, Rendering et post production pour configurateur automobile.",
+                  tags: ["Lumiscaphe Patchwork 3D", "Blender", "Maya", "Suite adobe"],
+                  img: null
+                },
+                {
+                  id: "decathlon",
+                  categorie: "3D / Design",
+                  titre: "Oxelo Decathlon",
+                  desc: "Digital designer - Modélisation et rendu de produits sportifs et Réalité virtuelle du merch",
+                  tags: ["Alias","Keyshot","VRED", "Blender"],
+                  img: null
+                },
+                {
+                  id: "cartes-profil",
+                  categorie: "Dev Web",
+                  titre: "Cartes de profil",
+                  desc: "Mini app JS vanilla - fetch depuis une API REST, génération dynamique de cartes.",
+                  tags: ["Javascript", "Fetch API", "CSS"],
+                  lien: "https://github.com/wasticodex/cartes-profil"
+                },
+                {
+                  id: "cv-scrollytelling",
+                  categorie: "Dev Web",
+                  titre: "CV Scrollytelling",
+                  desc: "Ce CV - construit avec React, useState, UseEffect et animations CSS.",
+                  tags: ["React", "CSS", "Git"],
+                  lien: "https://github.com/wasticodex/cv-scrollytelling"
+                },
+              ].map((projet, index) => (
+                <div className='projet-card' key={index}>
+                  <div className='projet-img'>
+                    {projet.img
+                      ? <img src={projet.img} alt={projet.title} />
+                      : <span>Image à venir</span>
+                    }
+                  </div>
+                  <div className='projet-infos'>
+                    <span className='projet-categories'>{projet.categorie}</span>
+                    <h3>{projet.titre}</h3>
+                    <p>{projet.desc}</p>
+                    <div className='projet-tags'>
+                      {projet.tags.map((tag, i) => (
+                        <span key={i} className='tag'>{tag}</span>
+                      ))}
+                    </div>
+                    <Link to={`/projet/${projet.id}`} className='projet-lien'>
+                      Voir la fiche →
+                    </Link>
+                    {projet.lien && (
+                      <a href={projet.lien} className='projet-lien' target='_blank'>
+                          Voir le projet →
+                      </a>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection id="contact">
+            <h2>Contact</h2>
+            <p className='contact-accroche'>
+              Ouvert aux opportunités - profil hybride, créatif et technique en quête de nouveaux défis.
+            </p>
+            <div className='contact-grid'>
+              <a href="mailto:wasticodex@gmail.com" className='contact-item'>
+                <span className='contact-icon'>✉</span>
+                <div>
+                  <p className='contact-label'>Email</p>
+                  <p className='contact-value'>wasti.codex@gmail.com</p>
+                </div>
+              </a>
+              <a href="https://github.com/wasticodex" target='_blank' className='contact-item'>
+                <span className='contact-icon'>⌥</span>
+                <div>
+                  <p className='contact-label'>GitHub</p>
+                  <p className='contact-value'>wasticodex</p>
+                </div>
+              </a>
+              <a href="https://linkedin.com/in/" target='_blank' className='contact-item'>
+                <span className='contact-icon'>in</span>
+                <div>
+                  <p className='contact-label'>LinkedIn</p>
+                  <p className='contact-value'>Matthieu PIRON</p>
+                </div>
+              </a>
+              <div className='contact-item'>
+                <span className='contact-icon'>📍</span>
+                <div>
+                  <p className='contact-label'>Localisation</p>
+                  <p className='contact-value'>France</p>
+                </div>
               </div>
             </div>
-          ))}
+          </AnimatedSection>
         </div>
-      </AnimatedSection>
-
-      <AnimatedSection id="contact">
-        <h2>Contact</h2>
-        <p className='contact-accroche'>
-          Ouvert aux opportunités - profil hybride, créatif et technique en quête de nouveaux défis.
-        </p>
-        <div className='contact-grid'>
-          <a href="mailto:wasticodex@gmail.com" className='contact-item'>
-            <span className='contact-icon'>✉</span>
-            <div>
-              <p className='contact-label'>Email</p>
-              <p className='contact-value'>wasti.codex@gmail.com</p>
-            </div>
-          </a>
-          <a href="https://github.com/wasticodex" target='_blank' className='contact-item'>
-            <span className='contact-icon'>⌥</span>
-            <div>
-              <p className='contact-label'>GitHub</p>
-              <p className='contact-value'>wasticodex</p>
-            </div>
-          </a>
-          <a href="https://linkedin.com/in/" target='_blank' className='contact-item'>
-            <span className='contact-icon'>in</span>
-            <div>
-              <p className='contact-label'>LinkedIn</p>
-              <p className='contact-value'>Matthieu PIRON</p>
-            </div>
-          </a>
-          <div className='contact-item'>
-            <span className='contact-icon'>📍</span>
-            <div>
-              <p className='contact-label'>Localisation</p>
-              <p className='contact-value'>France</p>
-            </div>
-          </div>
-        </div>
-      </AnimatedSection>
-    </div>
+      } />
+      <Route path="/projet/:id" element={<ProjetDetail />} />
+    </Routes> 
   )
 }
 

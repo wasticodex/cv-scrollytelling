@@ -472,6 +472,68 @@ section {
     scroll-margin-top: 60px;
 }
 
+.projet-detail {
+    padding: 80px 10%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.retour-btn {
+    display: inline-block;
+    color: var(--accent);
+    text-decoration: none;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    margin-bottom: 40px;
+}
+
+.retour-btn:hover {
+    text-decoration: underline;
+}
+
+.projet-detail-header {
+    margin-bottom: 40px;
+}
+
+.projet-detail-header h1 {
+    font-size: 40px;
+    font-weight: 700;
+    margin: 8px 0;
+}
+
+.projet-annee {
+    font-size: 13px;
+    color: var(--gray);
+    font-family: 'Courier New', monospace;
+}
+
+.projet-detail-img {
+    width: 100%;
+    height: 300px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gray);
+    font-family: 'Courier New', monospace;
+    margin-bottom: 40px;
+}
+
+.projet-detail-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.projet-detail-content p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--gray);
+}
+
 @media (max-width: 768px) {
 
     /* Navbar */
@@ -859,3 +921,4 @@ section {
         display: none !important;
     }
 }
+
